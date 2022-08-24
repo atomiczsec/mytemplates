@@ -1,0 +1,22 @@
+id: parameters.yml-leak
+
+info:
+  name: Parameters.yml Leak
+  author: atomiczsec
+  severity: high
+  reference:
+    - https://www.exploit-db.com/ghdb/6621
+  tags: config,exposure
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/app/config/parameters.yml"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+      - type: word
+        words:
+          - "parameters:"
